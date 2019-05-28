@@ -1,21 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace KnifeHitTest
 {
-    public class Log : MonoBehaviour, ISpriteLoader
+    public class Log : MonoBehaviour, ISpriteLoader, ILogData
     {
         [SerializeField]
         private new SpriteRenderer renderer;
         [SerializeField]
-        private LogSettings logSettings;
+        private StageSettings stageSettings;
         [SerializeField]
         private PooledAttachableFactory fruitFactory, knifeFactory;
         [SerializeField]
-        float radius = 2f;
+        float radius, explosionForce;
 
         private IRotation rotation;
         private IAttacher attacher;
+        private IBreaker breaker;
+
+        public float Radius => radius;
+
+        public float ExplosionForce => explosionForce;
+
+        public float ExplosionRadius => radius * 2;
 
         public void UpdateSprite(Sprite sprite)
         {
@@ -25,11 +33,13 @@ namespace KnifeHitTest
         private void Start()
         {
             attacher = new LogAttacher(transform, radius);
-            attacher.AttachItems(fruitFactory, logSettings.FruitAngles, -1);
-            attacher.AttachItems(knifeFactory, logSettings.KnifeAngles);
+            attacher.AttachItems(fruitFactory, stageSettings.LogSettings.FruitAngles, -1);
+            attacher.AttachItems(knifeFactory, stageSettings.LogSettings.KnifeAngles);
 
-            rotation = new CurveRotation(this, logSettings.RotationSettings);
+            rotation = new CurveRotation(this, stageSettings.LogSettings.RotationSettings);
             rotation.ToggleRotate(true);
+
+            //StartCoroutine(Break());
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
@@ -40,7 +50,15 @@ namespace KnifeHitTest
                 return;
             }
 
+            attachable.StopMotion();
             attacher.AttachItem(attachable);
+        }
+
+        IEnumerator Break()
+        {
+            yield return new WaitForSeconds(5);
+            breaker = new LogBreaker(renderer, attacher.AttachedItems, this);
+            breaker.Break();
         }
     } 
 }

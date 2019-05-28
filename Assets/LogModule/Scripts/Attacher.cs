@@ -6,7 +6,7 @@ namespace KnifeHitTest
 {
     public class LogAttacher : IAttacher
     {
-        private List<Attachable> attachedObjects;
+        private List<Attachable> attachedItems;
         private Transform transform;
         private float logRadius;
 
@@ -15,12 +15,21 @@ namespace KnifeHitTest
             this.transform = transform;
             this.logRadius = logRadius;
 
-            attachedObjects = new List<Attachable>();
+            attachedItems = new List<Attachable>();
         }
+
+        public IEnumerable<Attachable> AttachedItems => attachedItems;
 
         public void AttachItem(Attachable item)
         {
-            attachedObjects.Add(item);
+            if(attachedItems.Contains(item))
+            {
+                return;
+            }
+
+            item.transform.SetParent(transform);
+            attachedItems.Add(item);
+            Debug.Log("Item attached");
         }
 
         public void AttachItems(PooledAttachableFactory factory, IEnumerable<int> angles, float upDir = 1)
@@ -31,7 +40,7 @@ namespace KnifeHitTest
                 item.transform.position = GetPointOnCircle(transform.position, logRadius, angle);
                 item.transform.up = (transform.position - item.transform.position).normalized * upDir;
                 item.gameObject.SetActive(true);
-                attachedObjects.Add(item);
+                attachedItems.Add(item);
             }
         }
 

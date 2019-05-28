@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace KnifeHitTest
 {
-    public class Knife : Attachable
+    public class MenuPanel : UIPanel
     {
+        public void OnPlay()
+        {
 
-    }
+        }
+    } 
 }

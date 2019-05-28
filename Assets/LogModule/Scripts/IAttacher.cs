@@ -6,6 +6,7 @@ namespace KnifeHitTest
 {
     public interface IAttacher
     {
+        IEnumerable<Attachable> AttachedItems { get; }
         void AttachItem(Attachable item);
         void AttachItems(PooledAttachableFactory factory, IEnumerable<int> angles, float upDir = 1);
     } 
