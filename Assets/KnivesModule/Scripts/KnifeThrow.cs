@@ -15,7 +15,7 @@ namespace KnifeHitTest
 
         IController controller;
 
-        private void Start()
+        private void Initialize()
         {
             controller = new MouseController();
             StartCoroutine(StageRoutine());

@@ -30,7 +30,7 @@ namespace KnifeHitTest
             renderer.sprite = sprite;
         }
 
-        private void Start()
+        private void Initialize()
         {
             attacher = new LogAttacher(transform, radius);
             attacher.AttachItems(fruitFactory, stageSettings.LogSettings.FruitAngles, -1);
@@ -38,8 +38,6 @@ namespace KnifeHitTest
 
             rotation = new CurveRotation(this, stageSettings.LogSettings.RotationSettings);
             rotation.ToggleRotate(true);
-
-            //StartCoroutine(Break());
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
