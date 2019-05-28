@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace KnifeHitTest
 {
-    public abstract class PooledAttachableFactory<T> : MonoBehaviour where T : Attachable
+    public abstract class PooledFactory<T> : MonoBehaviour where T : Component
     {
         public T entityPrefab;
         public int poolCount = 10;
@@ -14,32 +14,32 @@ namespace KnifeHitTest
             pooledEntities = new List<T>();
             for (int i = 0; i < poolCount; i++)
             {
-                pooledEntities.Add(NewElement());
+                pooledEntities.Add(NewEntity());
             }
         }
 
-        private T NewElement()
+        private T NewEntity()
         {
-            T element = Instantiate<T>(entityPrefab, transform);
-            element.gameObject.SetActive(false);
-            return element;
+            T entity = Instantiate(entityPrefab, transform);
+            entity.gameObject.SetActive(false);
+            return entity;
         }
 
-        public T GetAttachable()
+        public T GetEntity()
         {
             if (pooledEntities == null || pooledEntities.Count == 0)
             {
                 CreateEntityPool();
             }
 
-            T element = pooledEntities.Find(x => !x.gameObject.activeSelf);
-            if (element == null)
+            T entity = pooledEntities.Find(x => !x.gameObject.activeSelf);
+            if (entity == null)
             {
-                element = NewElement();
-                pooledEntities.Add(element);
+                entity = NewEntity();
+                pooledEntities.Add(entity);
             }
 
-            return element;
+            return entity;
         }
     } 
 }

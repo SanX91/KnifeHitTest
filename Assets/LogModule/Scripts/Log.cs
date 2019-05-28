@@ -8,10 +8,14 @@ namespace KnifeHitTest
         [SerializeField]
         private new SpriteRenderer renderer;
         [SerializeField]
-        private RotationSettings rotationSettings;
-        private IRotation rotation;
+        private LogSettings logSettings;
+        [SerializeField]
+        private PooledAttachableFactory fruitFactory, knifeFactory;
+        [SerializeField]
+        float radius = 2f;
 
-        private List<Attachable> attachedObjects;
+        private IRotation rotation;
+        private IAttacher attacher;
 
         public void UpdateSprite(Sprite sprite)
         {
@@ -20,10 +24,12 @@ namespace KnifeHitTest
 
         private void Start()
         {
-            rotation = new CurveRotation(this, rotationSettings);
-            rotation.ToggleRotate(true);
+            attacher = new LogAttacher(transform, radius);
+            attacher.AttachItems(fruitFactory, logSettings.FruitAngles, -1);
+            attacher.AttachItems(knifeFactory, logSettings.KnifeAngles);
 
-            attachedObjects = new List<Attachable>();
+            rotation = new CurveRotation(this, logSettings.RotationSettings);
+            rotation.ToggleRotate(true);
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
@@ -34,7 +40,7 @@ namespace KnifeHitTest
                 return;
             }
 
-            attachedObjects.Add(attachable);
+            attacher.AttachItem(attachable);
         }
     } 
 }

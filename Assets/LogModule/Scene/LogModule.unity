@@ -152,10 +152,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 30051230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dc1b4789f20e0646b7b0f40ccd0a451, type: 3}
+  m_Script: {fileID: 11500000, guid: a85413f2a62065a4d84f0da48cef9938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityPrefab: {fileID: 0}
+  entityPrefab: {fileID: 2824296726609964823, guid: 89f4dfaaf5e168b4a9befcd79fa86c62,
+    type: 3}
   poolCount: 10
 --- !u!1 &308969110
 GameObject:
@@ -308,6 +309,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1431648044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1431648045}
+  - component: {fileID: 1431648046}
+  m_Layer: 0
+  m_Name: KnifeFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1431648045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431648044}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1529649184}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1431648046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431648044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85413f2a62065a4d84f0da48cef9938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPrefab: {fileID: 499277571, guid: c0f67672513ae484bb4c3e6ee200fef1, type: 3}
+  poolCount: 10
 --- !u!1 &1529649182
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +433,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 30051231}
+  - {fileID: 1431648045}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -403,7 +450,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 1529649183}
-  rotationSettings: {fileID: 11400000, guid: 12b4b6688a50cf1458815a5511f060ca, type: 2}
+  logSettings: {fileID: 11400000, guid: 4f7268afad0235049bb1fabf2eadf005, type: 2}
+  fruitFactory: {fileID: 30051232}
+  knifeFactory: {fileID: 1431648046}
+  radius: 2.2
 --- !u!58 &1529649186
 CircleCollider2D:
   m_ObjectHideFlags: 0

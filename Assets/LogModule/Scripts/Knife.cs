@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace KnifeHitTest
 {
-    public class FruitFactory : PooledAttachableFactory<Fruit>
+    public class Knife : Attachable
     {
 
     }
-
 }

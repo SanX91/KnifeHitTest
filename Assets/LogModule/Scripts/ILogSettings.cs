@@ -1,8 +1,11 @@
-﻿namespace KnifeHitTest
+﻿using System.Collections.Generic;
+
+namespace KnifeHitTest
 {
     public interface ILogSettings
     {
-        float MaxDefaultKnives { get; }
-        float MaxFruit { get; }
+        IEnumerable<int> KnifeAngles { get; }
+        IEnumerable<int> FruitAngles { get; }
+        IRotationSettings RotationSettings { get; }
     } 
 }

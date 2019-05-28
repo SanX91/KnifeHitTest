@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace KnifeHitTest
 {
-    [CreateAssetMenu(fileName = "RotationSettings", menuName = "Knife Hit Test/RotationSettings")]
-    public class RotationSettings : ScriptableObject, IRotationSettings
+    [Serializable]
+    public class RotationSettings : IRotationSettings
     {
         [SerializeField]
         private float speed, curveDuration;
@@ -13,5 +14,5 @@ namespace KnifeHitTest
         public float AnglePerFrame => speed;
         public AnimationCurve RotationCurve => rotationCurve;
         public float CurveDuration => curveDuration;
-    } 
+    }
 }
