@@ -10,9 +10,16 @@ namespace KnifeHitTest
         [SerializeField]
         private LogSettings logSettings;
         [SerializeField]
-        int knives;
+        int knives = 5;
 
         public ILogSettings LogSettings => logSettings;
         public int Knives => knives;
+    }
+
+    public class TestStageSettings : IStageSettings
+    {
+        public ILogSettings LogSettings => throw new System.NotImplementedException();
+
+        public int Knives => 5;
     }
 }
