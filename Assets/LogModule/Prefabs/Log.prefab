@@ -1,96 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6350466535936874318
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6350466535936874319}
-  - component: {fileID: 6350466535936874352}
-  m_Layer: 0
-  m_Name: FruitFactory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6350466535936874319
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6350466535936874318}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6350466536907719920}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6350466535936874352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6350466535936874318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a85413f2a62065a4d84f0da48cef9938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityPrefab: {fileID: 2824296726609964823, guid: 89f4dfaaf5e168b4a9befcd79fa86c62,
-    type: 3}
-  poolCount: 10
---- !u!1 &6350466536802249724
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6350466536802249725}
-  - component: {fileID: 6350466536802249726}
-  m_Layer: 0
-  m_Name: KnifeFactory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6350466536802249725
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6350466536802249724}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6350466536907719920}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6350466536802249726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6350466536802249724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a85413f2a62065a4d84f0da48cef9938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityPrefab: {fileID: 499277571, guid: c0f67672513ae484bb4c3e6ee200fef1, type: 3}
-  poolCount: 10
 --- !u!1 &6350466536907719886
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,8 +11,9 @@ GameObject:
   - component: {fileID: 6350466536907719920}
   - component: {fileID: 6350466536907719887}
   - component: {fileID: 6350466536907719921}
-  - component: {fileID: 6350466536907719922}
-  m_Layer: 0
+  - component: {fileID: 6350466535950081234}
+  - component: {fileID: 3131907479343438132}
+  m_Layer: 9
   m_Name: Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,9 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 6350466535936874319}
-  - {fileID: 6350466536802249725}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -186,13 +94,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc29c94eb127d31419fc3d6823415272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 6350466535950081234}
+  collider: {fileID: 3131907479343438132}
   renderer: {fileID: 6350466536907719887}
-  stageSettings: {fileID: 11400000, guid: 3ce60bc20e7d22d40b1f2de64fb646db, type: 2}
-  fruitFactory: {fileID: 6350466535936874352}
-  knifeFactory: {fileID: 6350466536802249726}
+  fruitFactory: {fileID: 4474979764330243473, guid: da05929ffbbb14047b8aacf0ca9c2147,
+    type: 3}
+  knifeFactory: {fileID: 4154240509921032473, guid: c4bca0c815c4ae44e8bba37cebbf70ee,
+    type: 3}
   radius: 2.2
-  explosionForce: 250
---- !u!58 &6350466536907719922
+  explosionForce: 10
+--- !u!50 &6350466535950081234
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350466536907719886}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &3131907479343438132
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace KnifeHitTest
 {
@@ -6,31 +7,43 @@ namespace KnifeHitTest
     public abstract class Attachable : MonoBehaviour
     {
         [SerializeField]
-        protected new Rigidbody2D rigidbody;
+        private new Rigidbody2D rigidbody;
+        int initialLayer;
 
-        private void Start()
+        public Rigidbody2D Rigidbody => rigidbody;
+
+        private void Awake()
         {
-            AdjustRigidbodyType(RigidbodyType2D.Static);
+            initialLayer = gameObject.layer;
         }
 
-        public void AdjustRigidbodyType(RigidbodyType2D rigidbodyType)
+        protected virtual void OnEnable()
         {
-            rigidbody.bodyType = rigidbodyType;
+            gameObject.layer = initialLayer;
+            AdjustRigidbodyType(RigidbodyType2D.Kinematic);
         }
 
-        public void StopMotion()
+        public void UpdateLayer(string layer)
         {
-            AdjustRigidbodyType(RigidbodyType2D.Static);
+            gameObject.layer = LayerMask.NameToLayer(layer);
         }
 
-        public void AddExplosionForce(float explosionForce, Vector3 explosionPosition, float explosionRadius)
+        public void AdjustRigidbodyType(RigidbodyType2D bodyType)
         {
+            Rigidbody.bodyType = bodyType;
+        }
+
+        public void AddExplosionForce(float explosionForce, Vector3 explosionPosition)
+        {
+            if(!gameObject.activeSelf)
+            {
+                return;
+            }
+
             AdjustRigidbodyType(RigidbodyType2D.Dynamic);
-
-            var dir = (rigidbody.transform.position - explosionPosition);
-            float wearoff = 1 - (dir.magnitude / explosionRadius);
-            rigidbody.AddForce(dir.normalized * (wearoff <= 0f ? 0f : explosionForce) * wearoff);
-            rigidbody.AddTorque(-dir.x * (wearoff <= 0f ? 0f : explosionForce) * wearoff);
+            var dir = (transform.position - explosionPosition).normalized;
+            dir = (Vector2)dir + Random.insideUnitCircle;
+            Rigidbody.AddForce(dir * explosionForce, ForceMode2D.Impulse);
         }
     } 
 }

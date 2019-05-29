@@ -8,7 +8,7 @@ namespace KnifeHitTest
     {
         public void OnPlay()
         {
-
+            EventManager.Instance.TriggerEvent(new GameStartEvent());
         }
     } 
 }

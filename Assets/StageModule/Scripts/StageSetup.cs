@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,46 +13,31 @@ namespace KnifeHitTest
 
         IStageSettings stageSettings;
 
+        private void OnEnable()
+        {           
+            EventManager.Instance.AddListener<StageEndEvent>(OnStageEndEvent);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.RemoveListener<StageEndEvent>(OnStageEndEvent);
+        }
+
+        private void OnTurnEndEvent(TurnEndEvent obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnStageEndEvent(StageEndEvent evt)
+        {
+            stageId++;
+            Initialize();
+        }
+
         // Start is called before the first frame update
-        IEnumerator Start()
+        public void Initialize()
         {
             StartCoroutine(LoadStageAsync());
-
-            EventManager.Instance.AddListener<StageStartEvent>(OnStageStart);
-            EventManager.Instance.AddListener<StageStartEvent>(OnStageStartV2);
-
-            //yield return new WaitForSeconds(2);
-
-            EventManager.Instance.TriggerEvent(new StageStartEvent(new TestStageSettings()));
-
-            yield return new WaitForSeconds(2);
-
-            EventManager.Instance.TriggerEvent(new StageStartEvent(new TestStageSettings()));
-
-            yield return new WaitForSeconds(2);
-
-            EventManager.Instance.RemoveListener<StageStartEvent>(OnStageStart);
-            //EventManager.GetInstance().RemoveListener<StageStartEvent>(OnStageStartV2);
-
-            EventManager.Instance.TriggerEvent(new StageStartEvent(new TestStageSettings()));
-        }
-
-        void OnStageStart(StageStartEvent stageStartEvent)
-        {
-            IStageSettings stageSettings = (IStageSettings)stageStartEvent.GetData();
-            Debug.Log(stageSettings.Knives);
-        }
-
-        void OnStageStartV2(StageStartEvent stageStartEvent)
-        {
-            IStageSettings stageSettings = (IStageSettings)stageStartEvent.GetData();
-            Debug.Log($"{stageSettings.Knives} knives up yours!");
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         IEnumerator LoadStageAsync()
@@ -62,8 +48,15 @@ namespace KnifeHitTest
                 yield return null;
             }
 
+            if(request.asset == null)
+            {
+                Debug.LogWarning("Stage not found, triggering game over!");
+                yield break;
+            }
+
             stageSettings = (IStageSettings)Instantiate(request.asset);
-            //Debug.Log(stageSettings.Knives);
+            EventManager.Instance.TriggerEvent(new StageStartEvent(stageSettings));
+            EventManager.Instance.TriggerEvent(new StageIdEvent(stageId));
         }
     } 
 }

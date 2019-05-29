@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace KnifeHitTest
         Log log;
         [SerializeField]
         KnifeThrow knifeThrow;
+        [SerializeField]
+        StageSetup stageSetup;
 
         Persistence persistence;
         ResourceData resourceData;
@@ -20,12 +23,27 @@ namespace KnifeHitTest
 
         private void OnEnable()
         {
-            
+            EventManager.Instance.AddListener<GameStartEvent>(OnGameStart);
+            EventManager.Instance.AddListener<GameOverEvent>(OnGameOver);
         }
 
         private void OnDisable()
         {
-            
+            EventManager.Instance.RemoveListener<GameStartEvent>(OnGameStart);
+            EventManager.Instance.RemoveListener<GameOverEvent>(OnGameOver);
+        }
+
+        private void OnGameOver(GameOverEvent evt)
+        {
+            uiManager.OpenPanel<MenuPanel>();
+            log.Reset();
+            knifeThrow.Reset();
+        }
+
+        private void OnGameStart(GameStartEvent evt)
+        {
+            uiManager.OpenPanel<GameHUD>();
+            stageSetup.Initialize();
         }
 
         private IEnumerator Start()
@@ -38,13 +56,15 @@ namespace KnifeHitTest
                 resourceData = new ResourceData();
             }
 
-            uiManager = Instantiate(uiManager);
-            yield return null;
-            uiManager.Initialize();
+            uiManager = Instantiate(uiManager);     
             yield return null;
             log = Instantiate(log);
             yield return null;
             knifeThrow = Instantiate(knifeThrow);
+            yield return null;
+            stageSetup = Instantiate(stageSetup);
+
+            EventManager.Instance.TriggerEvent(new CurrencyUpdateEvent(resourceData.Currency));
         }
 
         void SaveResourceData()

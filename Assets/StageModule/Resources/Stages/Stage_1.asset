@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logSettings:
     rotationSettings:
-      speed: 6
+      speed: 3
       curveDuration: 4
       rotationCurve:
         serializedVersion: 2
@@ -29,33 +29,6 @@ MonoBehaviour:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.19951355
-          value: 0.00776875
-          inSlope: 0.1108672
-          outSlope: 0.1108672
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.66601527
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.5081
-          value: 0.9965205
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.6868042
-          value: -0.55646026
-          inSlope: 0.006895175
-          outSlope: 0.006895175
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.52892023
-        - serializedVersion: 3
           time: 1
           value: 1
           inSlope: 0
@@ -67,6 +40,6 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    knifeAngles: 1e0000003c0000005a000000
-    fruitAngles: 96000000
+    knifeAngles: 0a0000001e0000003c0000005a000000
+    fruitAngles: d2000000
   knives: 4

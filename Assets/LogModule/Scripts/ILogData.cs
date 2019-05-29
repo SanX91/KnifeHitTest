@@ -8,6 +8,5 @@ namespace KnifeHitTest
     {
         float Radius { get; }
         float ExplosionForce { get; }
-        float ExplosionRadius { get; }
     } 
 }

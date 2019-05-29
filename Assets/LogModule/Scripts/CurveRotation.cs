@@ -6,12 +6,14 @@ namespace KnifeHitTest
     public class CurveRotation : IRotation
     {
         private readonly MonoBehaviour behaviour;
+        private readonly Rigidbody2D rigidbody;
         private readonly IRotationSettings settings;
         private Coroutine rotateRoutine;
 
-        public CurveRotation(MonoBehaviour behaviour, IRotationSettings settings)
+        public CurveRotation(MonoBehaviour behaviour, Rigidbody2D rigidbody, IRotationSettings settings)
         {
             this.behaviour = behaviour;
+            this.rigidbody = rigidbody;
             this.settings = settings;
         }
 
@@ -21,10 +23,11 @@ namespace KnifeHitTest
 
             while (time < 1)
             {
+                yield return new WaitForFixedUpdate();
                 time += Time.deltaTime / settings.CurveDuration;
                 float angle = settings.RotationCurve.Evaluate(time) * settings.AnglePerFrame;
-                behaviour.transform.Rotate(Vector3.forward, angle);
-                yield return new WaitForEndOfFrame();
+                //behaviour.transform.Rotate(Vector3.forward, angle);
+                rigidbody.MoveRotation(rigidbody.rotation + angle);
             }
 
             rotateRoutine = behaviour.StartCoroutine(Rotate());

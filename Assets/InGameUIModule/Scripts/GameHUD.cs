@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace KnifeHitTest
@@ -6,31 +7,28 @@ namespace KnifeHitTest
     public class GameHUD : UIPanel
     {
         [SerializeField]
-        private TextMeshProUGUI fruitText, knivesText, stageText;
+        private TextMeshProUGUI knivesText, stageText;
 
         private void OnEnable()
         {
-            
+            EventManager.Instance.AddListener<StageIdEvent>(OnStageIdUpdate);
+            EventManager.Instance.AddListener<KnivesUpdateEvent>(OnKnivesUpdate);
         }
 
         private void OnDisable()
         {
-            
+            EventManager.Instance.AddListener<StageIdEvent>(OnStageIdUpdate);
+            EventManager.Instance.AddListener<KnivesUpdateEvent>(OnKnivesUpdate);
         }
 
-        void OnFruitUpdate(int fruitCount)
+        private void OnStageIdUpdate(StageIdEvent evt)
         {
-            fruitText.SetText(fruitCount.ToString());
+            stageText.SetText($"Stage {evt.GetData()}");
         }
 
-        void OnKnivesUpdate(int knivesCount)
+        void OnKnivesUpdate(KnivesUpdateEvent evt)
         {
-            knivesText.SetText(knivesCount.ToString());
-        }
-
-        void OnStageUpdate(int stageCount)
-        {
-            stageText.SetText($"Stage {stageCount}");
+            knivesText.SetText(evt.GetData().ToString());
         }
     }
 }

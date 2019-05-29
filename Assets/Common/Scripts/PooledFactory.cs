@@ -41,5 +41,15 @@ namespace KnifeHitTest
 
             return entity;
         }
+
+        public void Reset()
+        {
+            foreach(var entity in pooledEntities)
+            {
+                entity.transform.SetParent(transform);
+                entity.gameObject.SetActive(false);
+                entity.transform.localPosition = Vector2.zero;
+            }
+        }
     } 
 }

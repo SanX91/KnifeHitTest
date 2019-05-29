@@ -68,5 +68,5 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
     knifeAngles: 1e0000003c0000005a000000
-    fruitAngles: 96000000
+    fruitAngles: 5a000000
   knives: 0

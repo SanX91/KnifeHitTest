@@ -10,6 +10,8 @@ namespace KnifeHitTest
         [SerializeField]
         List<UIPanel> uiPanels;
 
+        UIPanel currentPanel;
+
         /// <summary>
         /// Gets any panel derived from UIPanel class.
         /// </summary>
@@ -26,11 +28,20 @@ namespace KnifeHitTest
             {
                 panel.Close();
             }
+
+            OpenPanel<CommonPanel>();
+            OpenPanel<MenuPanel>();
         }
 
-        public void Initialize()
+        public void OpenPanel<T>() where T : UIPanel
         {
-            GetPanel<MenuPanel>().Open();
+            if(currentPanel != null)
+            {
+                currentPanel.Close();
+            }
+
+            currentPanel = GetPanel<T>();
+            currentPanel.Open();
         }
     } 
 }

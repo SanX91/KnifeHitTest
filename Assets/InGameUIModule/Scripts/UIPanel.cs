@@ -6,12 +6,12 @@ namespace KnifeHitTest
 {
     public abstract class UIPanel : MonoBehaviour, IPanel
     {
-        public void Close()
+        public virtual void Close()
         {
             gameObject.SetActive(false);
         }
 
-        public void Open()
+        public virtual void Open()
         {
             gameObject.SetActive(true);
         }

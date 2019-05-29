@@ -7,12 +7,12 @@ namespace KnifeHitTest
     public class LogAttacher : IAttacher
     {
         private List<Attachable> attachedItems;
-        private Transform transform;
+        private GameObject gameObject;
         private float logRadius;
 
-        public LogAttacher(Transform transform, float logRadius)
+        public LogAttacher(GameObject gameObject, float logRadius)
         {
-            this.transform = transform;
+            this.gameObject = gameObject;
             this.logRadius = logRadius;
 
             attachedItems = new List<Attachable>();
@@ -22,26 +22,33 @@ namespace KnifeHitTest
 
         public void AttachItem(Attachable item)
         {
-            if(attachedItems.Contains(item))
-            {
-                return;
-            }
-
-            item.transform.SetParent(transform);
+            item.transform.SetParent(gameObject.transform);
+            item.transform.position = GetPointOnCircle(gameObject.transform.position, logRadius, item.transform.position);
             attachedItems.Add(item);
             Debug.Log("Item attached");
         }
 
-        public void AttachItems(PooledAttachableFactory factory, IEnumerable<int> angles, float upDir = 1)
+        public void AttachItems(PooledAttachableFactory factory, IEnumerable<int> angles, bool isFlipped = false)
         {
             foreach (var angle in angles)
             {
                 Attachable item = factory.GetEntity();
-                item.transform.position = GetPointOnCircle(transform.position, logRadius, angle);
-                item.transform.up = (transform.position - item.transform.position).normalized * upDir;
+                item.transform.SetParent(gameObject.transform);
+                item.transform.position = GetPointOnCircle(gameObject.transform.position, logRadius, angle);
+
+                var dir = gameObject.transform.position - item.transform.position;
+                float lookAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                lookAngle = isFlipped ? lookAngle + 90 : lookAngle - 90;
+                item.transform.rotation = Quaternion.AngleAxis(lookAngle, Vector3.forward);
+
                 item.gameObject.SetActive(true);
                 attachedItems.Add(item);
             }
+        }
+
+        public void Reset()
+        {
+            attachedItems = new List<Attachable>();
         }
 
         Vector2 GetPointOnCircle(Vector2 center, float radius, float angle)
@@ -51,6 +58,12 @@ namespace KnifeHitTest
             float y = center.y + radius * Mathf.Sin(angleInRad);
 
             return new Vector2(x, y);
+        }
+		
+		Vector2 GetPointOnCircle(Vector2 center, float radius, Vector2 point)
+        {
+            Vector2 dir = point - center;
+            return center + (dir.normalized * radius);
         }
     }
 }

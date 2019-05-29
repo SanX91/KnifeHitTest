@@ -8,6 +8,7 @@ namespace KnifeHitTest
     {
         IEnumerable<Attachable> AttachedItems { get; }
         void AttachItem(Attachable item);
-        void AttachItems(PooledAttachableFactory factory, IEnumerable<int> angles, float upDir = 1);
+        void AttachItems(PooledAttachableFactory factory, IEnumerable<int> angles, bool isFlipped = false);
+        void Reset();
     } 
 }
