@@ -1,15 +1,18 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace KnifeHitTest
 {
-    public class ThrowableKnife : Knife, IThrowable
+    /// <summary>
+    /// The throwable knife class.
+    /// Implements the IThrowable interface.
+    /// On collision with another Attachable type of "NonThrowable" layer triggers game over.
+    /// </summary>
+    public class ThrowableKnife : Attachable, IThrowable
     {
         [SerializeField]
-        new BoxCollider2D collider;
-
-        bool isGameOver;
+        private new BoxCollider2D collider;
+        private bool isGameOver;
 
         protected override void OnEnable()
         {
@@ -23,13 +26,19 @@ namespace KnifeHitTest
             Rigidbody.AddForce(Vector2.up * 100, ForceMode2D.Impulse);
         }
 
-        void FixedUpdate()
+        /// <summary>
+        /// Does a boxcast ahead to check for any collision with another Attachable type of "NonThrowable" layer.
+        /// This is done to avoid simultaneous trigger enters on both the log piece and the Attachable type.
+        /// On collision with another Attachable type of "NonThrowable" layer triggers game over.
+        /// </summary>
+        private void FixedUpdate()
         {
-            if(isGameOver)
+            if (isGameOver)
             {
                 return;
             }
 
+            //Return if object is attached to the log piece.
             if (gameObject.layer.Equals(LayerMask.NameToLayer(Constants.NonThrowableLayer)))
             {
                 return;
@@ -38,14 +47,14 @@ namespace KnifeHitTest
             RaycastHit2D[] hits = Physics2D.BoxCastAll(Rigidbody.position + collider.offset, collider.size, 0, Rigidbody.velocity.normalized, 0.5f);
             Transform hitTransform = null;
             bool isMisHit = false;
-            foreach(var hit in hits)
+            foreach (RaycastHit2D hit in hits)
             {
-                if(hit.collider.gameObject == gameObject)
+                if (hit.collider.gameObject == gameObject)
                 {
                     continue;
                 }
 
-                if(hit.collider.gameObject.layer.Equals(LayerMask.NameToLayer(Constants.NonThrowableLayer)))
+                if (hit.collider.gameObject.layer.Equals(LayerMask.NameToLayer(Constants.NonThrowableLayer)))
                 {
                     isMisHit = true;
                     hitTransform = hit.transform;
@@ -53,7 +62,7 @@ namespace KnifeHitTest
                 }
             }
 
-            if(!isMisHit)
+            if (!isMisHit)
             {
                 return;
             }
@@ -66,7 +75,7 @@ namespace KnifeHitTest
             StartCoroutine(GameOver());
         }
 
-        IEnumerator GameOver()
+        private IEnumerator GameOver()
         {
             isGameOver = true;
             yield return new WaitForSeconds(1);

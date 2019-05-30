@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace KnifeHitTest
 {
+    /// <summary>
+    /// The Knife Throw class.
+    /// This class is responsible for handling the knife throwing system of the game.
+    /// Also responsible for adjusting the score on every turn end.
+    /// </summary>
     public class KnifeThrow : MonoBehaviour
     {
         [SerializeField]
-        int scorePerTurn = 2;
+        private int scorePerTurn = 2;
         [SerializeField]
-        float turnEndMultiplier = 1.2f;
+        private float turnEndMultiplier = 1.2f;
         [SerializeField]
         private PooledAttachableFactory knifeFactory;
         [SerializeField]
-        Transform knifePlaceholder;
-
-        IController controller;
-        ScoreData scoreData;
-        int stageKnives;
+        private Transform knifePlaceholder;
+        private IController controller;
+        private ScoreData scoreData;
+        private int stageKnives;
 
         private void OnEnable()
         {
@@ -32,18 +34,26 @@ namespace KnifeHitTest
             EventManager.Instance.RemoveListener<TurnEndEvent>(OnTurnEndEvent);
         }
 
+        /// <summary>
+        /// Setting up a mouse controller.
+        /// </summary>
         private void Start()
         {
             controller = new MouseController();
         }
 
+        /// <summary>
+        /// Restarts the stage routine if there are remaining knives.
+        /// Otherwise, triggers the stage success event.
+        /// Adjusts the game score as well.
+        /// </summary>
+        /// <param name="evt"></param>
         private void OnTurnEndEvent(TurnEndEvent evt)
         {
-            if(stageKnives>0)
+            if (stageKnives > 0)
             {
                 StartCoroutine(StageRoutine());
                 scoreData.AdjustScore(scorePerTurn);
-                Debug.Log(scoreData.Score);
                 EventManager.Instance.TriggerEvent(new ScoreUpdateEvent(scoreData.Score));
                 return;
             }
@@ -63,10 +73,15 @@ namespace KnifeHitTest
 
         public void Initialize(ScoreData scoreData)
         {
-            this.scoreData = scoreData;   
+            this.scoreData = scoreData;
         }
 
-        IEnumerator StageRoutine()
+        /// <summary>
+        /// The stage routine.
+        /// Gets a throwable knife from the knifeFactory, and awaits user input to throw it.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator StageRoutine()
         {
             Attachable knife = knifeFactory.GetEntity();
             knife.transform.position = knifePlaceholder.position;
@@ -89,5 +104,5 @@ namespace KnifeHitTest
         {
             knifeFactory.Reset();
         }
-    } 
+    }
 }

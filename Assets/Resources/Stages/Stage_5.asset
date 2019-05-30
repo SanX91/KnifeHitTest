@@ -15,7 +15,7 @@ MonoBehaviour:
   logSettings:
     rotationSettings:
       speed: 5
-      curveDuration: 3
+      curveDuration: 5
       rotationCurve:
         serializedVersion: 2
         m_Curve:

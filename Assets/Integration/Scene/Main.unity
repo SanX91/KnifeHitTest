@@ -291,7 +291,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1195497973988175952, guid: 5fee6054118e52740b73922b3a0f9ff9,
     type: 3}
-  log: {fileID: 6350466536907719921, guid: b7a855b987c91714087fccc98b70fa97, type: 3}
+  logPiece: {fileID: 6350466536907719921, guid: b7a855b987c91714087fccc98b70fa97,
+    type: 3}
   knifeThrow: {fileID: 1546306810270359958, guid: cb7f5f2a8c047234ca532880ed6345cd,
     type: 3}
   stageSetup: {fileID: 8121642024993874514, guid: 9497851a0f8746c49bd4b4332510788b,

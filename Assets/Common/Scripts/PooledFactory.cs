@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// An abstract factory class which supports object pooling.
+/// Can generate any type of objects which inherit from Unity's Component type.
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public abstract class PooledFactory<T> : MonoBehaviour where T : Component
 {
     public T entityPrefab;
@@ -13,6 +17,9 @@ public abstract class PooledFactory<T> : MonoBehaviour where T : Component
         CreateEntityPool();
     }
 
+    /// <summary>
+    /// Creates a pool of objects of a certain type and stores it in a list.
+    /// </summary>
     private void CreateEntityPool()
     {
         pooledEntities = new List<T>();
@@ -22,6 +29,10 @@ public abstract class PooledFactory<T> : MonoBehaviour where T : Component
         }
     }
 
+    /// <summary>
+    /// Creates a new object of a certain type.
+    /// </summary>
+    /// <returns></returns>
     private T NewEntity()
     {
         T entity = Instantiate(entityPrefab, transform);
@@ -29,6 +40,11 @@ public abstract class PooledFactory<T> : MonoBehaviour where T : Component
         return entity;
     }
 
+    /// <summary>
+    /// Returns an unused and deactivated pooled object.
+    /// Can create new objects, if run out of unused objects.
+    /// </summary>
+    /// <returns></returns>
     public T GetEntity()
     {
         if (pooledEntities == null || pooledEntities.Count == 0)
@@ -46,6 +62,9 @@ public abstract class PooledFactory<T> : MonoBehaviour where T : Component
         return entity;
     }
 
+    /// <summary>
+    /// Resets the objects in the pool, to their original state.
+    /// </summary>
     public void Reset()
     {
         foreach (T entity in pooledEntities)

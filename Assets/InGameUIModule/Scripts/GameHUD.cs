@@ -1,9 +1,12 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace KnifeHitTest
 {
+    /// <summary>
+    /// The Game HUD class.
+    /// Responsible for displaying the stage number, the score and the knives remaining to the user.
+    /// </summary>
     public class GameHUD : UIPanel
     {
         [SerializeField]
@@ -33,7 +36,7 @@ namespace KnifeHitTest
             stageText.SetText($"Stage {evt.GetData()}");
         }
 
-        void OnKnivesUpdate(KnivesUpdateEvent evt)
+        private void OnKnivesUpdate(KnivesUpdateEvent evt)
         {
             knivesText.SetText(evt.GetData().ToString());
         }

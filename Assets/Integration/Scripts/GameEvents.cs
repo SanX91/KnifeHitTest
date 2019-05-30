@@ -10,7 +10,7 @@
 
     public class CurrencyUpdateEvent : IEvent
     {
-        int currency;
+        private readonly int currency;
 
         public CurrencyUpdateEvent(int currency)
         {
@@ -25,7 +25,7 @@
 
     public class CurrencyPickupEvent : IEvent
     {
-        int count;
+        private readonly int count;
 
         public CurrencyPickupEvent(int count)
         {
@@ -40,7 +40,7 @@
 
     public class HighScoreUpdateEvent : IEvent
     {
-        int score;
+        private readonly int score;
 
         public HighScoreUpdateEvent(int score)
         {

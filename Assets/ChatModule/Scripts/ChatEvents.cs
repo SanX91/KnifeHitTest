@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ChatSystem
 {
     public class ClickFriendEvent : IEvent
     {
-        FriendData friendData;
+        private readonly FriendData friendData;
 
         public ClickFriendEvent(FriendData data)
         {
@@ -28,7 +27,7 @@ namespace ChatSystem
 
     public class SendMessageEvent : IEvent
     {
-        ChatMessage message;
+        private readonly ChatMessage message;
 
         public SendMessageEvent(ChatMessage message)
         {
@@ -43,7 +42,7 @@ namespace ChatSystem
 
     public class ReceiveMessageEvent : IEvent
     {
-        ChatMessage message;
+        private readonly ChatMessage message;
 
         public ReceiveMessageEvent(ChatMessage message)
         {
@@ -58,7 +57,7 @@ namespace ChatSystem
 
     public class FetchConversationEvent : IEvent
     {
-        uint userId;
+        private readonly uint userId;
 
         public FetchConversationEvent(uint userId)
         {
@@ -73,7 +72,7 @@ namespace ChatSystem
 
     public class ReceiveConversationEvent : IEvent
     {
-        List<ChatMessage> messages;
+        private readonly List<ChatMessage> messages;
 
         public ReceiveConversationEvent(List<ChatMessage> messages)
         {

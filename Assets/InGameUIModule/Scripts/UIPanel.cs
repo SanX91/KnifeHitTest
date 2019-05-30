@@ -1,10 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace KnifeHitTest
 {
-    public abstract class UIPanel : MonoBehaviour, IPanel
+    /// <summary>
+    /// The abstract UI panel class.
+    /// Contains default methods for opening and closing the panel.
+    /// </summary>
+    public abstract class UIPanel : MonoBehaviour
     {
         public virtual void Close()
         {
@@ -15,5 +17,5 @@ namespace KnifeHitTest
         {
             gameObject.SetActive(true);
         }
-    } 
+    }
 }

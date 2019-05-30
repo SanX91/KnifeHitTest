@@ -1,27 +1,28 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace KnifeHitTest
 {
+    /// <summary>
+    /// The Game Setup class.
+    /// Instantiates all the sub systems of the game.
+    /// Currently, also responsible for saving/loading score and currency data.
+    /// </summary>
     public class GameSetup : MonoBehaviour
     {
         [SerializeField]
-        UIManager uiManager;
+        private UIManager uiManager;
         [SerializeField]
-        Log log;
+        private LogPiece logPiece;
         [SerializeField]
-        KnifeThrow knifeThrow;
+        private KnifeThrow knifeThrow;
         [SerializeField]
-        StageSetup stageSetup;
-
-        Persistence persistence;
-        ResourceData resourceData;
-        ScoreData scoreData;
-
-        const string ResourceSaveKey = "ResourceSave";
-        const string ScoreSaveKey = "ScoreSave";
+        private StageSetup stageSetup;
+        private Persistence persistence;
+        private ResourceData resourceData;
+        private ScoreData scoreData;
+        private const string ResourceSaveKey = "ResourceSave";
+        private const string ScoreSaveKey = "ScoreSave";
 
         private void OnEnable()
         {
@@ -41,7 +42,7 @@ namespace KnifeHitTest
 
         private void OnStageEnd(StageEndEvent evt)
         {
-            log.Reset();
+            logPiece.Reset();
             knifeThrow.Reset();
         }
 
@@ -51,10 +52,15 @@ namespace KnifeHitTest
             EventManager.Instance.TriggerEvent(new CurrencyUpdateEvent(resourceData.Currency));
         }
 
+        /// <summary>
+        /// Resets all the subsystems on game over.
+        /// Also saves the currency, and high score updates.
+        /// </summary>
+        /// <param name="evt"></param>
         private void OnGameOver(GameOverEvent evt)
         {
             uiManager.OpenPanel<MenuPanel>();
-            log.Reset();
+            logPiece.Reset();
             knifeThrow.Reset();
             stageSetup.Reset();
 
@@ -73,15 +79,19 @@ namespace KnifeHitTest
             EventManager.Instance.TriggerEvent(new ScoreUpdateEvent(scoreData.Score));
         }
 
+        /// <summary>
+        /// Instantiates all the sub systems of the game.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Start()
         {
             persistence = new Persistence();
             InitializeResourceData();
             InitializeScoreData();
 
-            uiManager = Instantiate(uiManager);     
+            uiManager = Instantiate(uiManager);
             yield return null;
-            log = Instantiate(log);
+            logPiece = Instantiate(logPiece);
             yield return null;
             knifeThrow = Instantiate(knifeThrow);
             knifeThrow.Initialize(scoreData);
@@ -92,7 +102,11 @@ namespace KnifeHitTest
             EventManager.Instance.TriggerEvent(new HighScoreUpdateEvent(scoreData.HighScore));
         }
 
-        void InitializeResourceData()
+        /// <summary>
+        /// Creates a ResourceData instance from an existing save, if any.
+        /// Otherwise, just creates a new ResourceData instance
+        /// </summary>
+        private void InitializeResourceData()
         {
             resourceData = persistence.LoadData<ResourceData>(ResourceSaveKey);
 
@@ -102,7 +116,11 @@ namespace KnifeHitTest
             }
         }
 
-        void InitializeScoreData()
+        /// <summary>
+        /// Creates a ScoreData instance from an existing save, if any.
+        /// Otherwise, just creates a new ScoreData instance
+        /// </summary>
+        private void InitializeScoreData()
         {
             scoreData = persistence.LoadData<ScoreData>(ScoreSaveKey);
 
@@ -112,14 +130,20 @@ namespace KnifeHitTest
             }
         }
 
-        void SaveResourceData()
+        private void SaveResourceData()
         {
             persistence.SaveData(ResourceSaveKey, resourceData);
         }
 
-        void SaveScoreData()
+        private void SaveScoreData()
         {
             persistence.SaveData(ScoreSaveKey, scoreData);
         }
-    } 
+
+        public void ClearAllData()
+        {
+            persistence = new Persistence();
+            persistence.ClearAllData();
+        }
+    }
 }

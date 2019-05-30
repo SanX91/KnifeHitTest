@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace KnifeHitTest
 {
+    /// <summary>
+    /// The menu panel.
+    /// The panel which contains the play button, and displays the high score.
+    /// </summary>
     public class MenuPanel : UIPanel
     {
         [SerializeField]
@@ -30,5 +31,5 @@ namespace KnifeHitTest
         {
             EventManager.Instance.TriggerEvent(new GameStartEvent());
         }
-    } 
+    }
 }

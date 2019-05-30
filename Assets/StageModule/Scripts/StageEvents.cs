@@ -2,7 +2,7 @@
 {
     public class StageStartEvent : IEvent
     {
-        IStageSettings stageSettings;
+        private readonly IStageSettings stageSettings;
 
         public StageStartEvent(IStageSettings stageSettings)
         {
@@ -17,7 +17,7 @@
 
     public class StageIdEvent : IEvent
     {
-        int stageId;
+        private readonly int stageId;
 
         public StageIdEvent(int stageId)
         {
@@ -56,7 +56,7 @@
 
     public class KnivesUpdateEvent : IEvent
     {
-        int knives;
+        private readonly int knives;
 
         public KnivesUpdateEvent(int knives)
         {
@@ -71,7 +71,7 @@
 
     public class ScoreUpdateEvent : IEvent
     {
-        int score;
+        private readonly int score;
 
         public ScoreUpdateEvent(int score)
         {

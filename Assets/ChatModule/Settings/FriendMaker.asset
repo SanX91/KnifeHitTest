@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: FriendMaker
   m_EditorClassIdentifier: 
   friends:
-  - name: Vishnu
+  - name: Earl
     userId: 1
     imageURL: 
-  - name: Kilo
+  - name: Bison
     userId: 2
     imageURL: 
-  - name: Jumbo
+  - name: Jones
     userId: 3
     imageURL: 
-  - name: Sarah
+  - name: Medina
     userId: 4
     imageURL: 
-  - name: Clive
+  - name: Vishnu
     userId: 5
     imageURL: 

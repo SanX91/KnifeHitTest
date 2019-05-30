@@ -1,9 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace KnifeHitTest
 {
+    /// <summary>
+    /// The persistence class.
+    /// Used for saving and loading data to Playerprefs.
+    /// Serializes data in JSON format.
+    /// </summary>
     public class Persistence
     {
         public void SaveData(string key, object data)
@@ -22,5 +25,5 @@ namespace KnifeHitTest
             PlayerPrefs.DeleteAll();
             Debug.Log("Data Reset");
         }
-    } 
+    }
 }

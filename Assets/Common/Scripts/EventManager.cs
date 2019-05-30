@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The EventManager class.
+/// Instantiated lazily.
+/// Events to be triggered require implementing the IEvent interface.
+/// </summary>
 public class EventManager
 {
     private static readonly Lazy<EventManager> instance
@@ -14,17 +19,20 @@ public class EventManager
     private Dictionary<Type, Action<IEvent>> listeners = new Dictionary<Type, Action<IEvent>>();
     private Dictionary<Delegate, Action<IEvent>> lookup = new Dictionary<Delegate, Action<IEvent>>();
 
+    /// <summary>
+    /// Adds a listener and stores it in a dictionary.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="action"></param>
     public void AddListener<T>(Action<T> action) where T : IEvent
     {
         if (action == null)
         {
-            Debug.Log("Action cannot be null");
             return;
         }
 
         if (lookup.ContainsKey(action))
         {
-            Debug.Log("Action already added");
             return;
         }
 
@@ -35,19 +43,21 @@ public class EventManager
         if (listeners.TryGetValue(type, out Action<IEvent> existingAction))
         {
             listeners[type] = existingAction += callback;
-            Debug.Log($"Action successfully added: {lookup.Count}");
             return;
         }
 
         listeners[type] = callback;
-        Debug.Log($"Action successfully added: {lookup.Count}");
     }
 
+    /// <summary>
+    /// Removes any listener stored in the dictionary.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="action"></param>
     public void RemoveListener<T>(Action<T> action) where T : IEvent
     {
         if (action == null)
         {
-            Debug.Log("Action cannot be null");
             return;
         }
 
@@ -68,13 +78,14 @@ public class EventManager
             }
 
             lookup.Remove(action);
-            Debug.Log($"Action successfully removed: {lookup.Count}");
             return;
         }
-
-        Debug.Log($"Action not found");
     }
 
+    /// <summary>
+    /// Triggers an event of type IEvent immediately.
+    /// </summary>
+    /// <param name="evt"></param>
     public void TriggerEvent(IEvent evt)
     {
         Type type = evt.GetType();

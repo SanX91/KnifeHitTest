@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace KnifeHitTest
 {
+    /// <summary>
+    /// The Stage setup class.
+    /// Loads the stage settings for each stage, and triggers the stage start event.
+    /// Currently loads the stage settings from the Resources folder.
+    /// </summary>
     public class StageSetup : MonoBehaviour
     {
-        int stageId = 1;
-        const string path = "Stages/";
-        const string stageName = "Stage_";
-
-        IStageSettings stageSettings;
+        private int stageId = 1;
+        private const string path = "Stages/";
+        private const string stageName = "Stage_";
+        private IStageSettings stageSettings;
 
         private void OnEnable()
-        {           
+        {
             EventManager.Instance.AddListener<StageEndEvent>(OnStageEndEvent);
         }
 
@@ -35,15 +37,21 @@ namespace KnifeHitTest
             StartCoroutine(LoadStageAsync());
         }
 
-        IEnumerator LoadStageAsync()
+        /// <summary>
+        /// Loads the stage settings asynchronously from the Resources folder with the path name.
+        /// On successfully loading the settings, triggers the stage start event.
+        /// If there are no stages found with the current stageId, then game over is triggered.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator LoadStageAsync()
         {
             ResourceRequest request = Resources.LoadAsync<StageSettings>(path + stageName + stageId);
-            while(!request.isDone)
+            while (!request.isDone)
             {
                 yield return null;
             }
 
-            if(request.asset == null)
+            if (request.asset == null)
             {
                 EventManager.Instance.TriggerEvent(new GameOverEvent());
                 yield break;
@@ -58,5 +66,5 @@ namespace KnifeHitTest
         {
             stageId = 1;
         }
-    } 
+    }
 }
