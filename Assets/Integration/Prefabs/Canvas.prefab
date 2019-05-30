@@ -130,6 +130,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CommonPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 2099580404249752703, guid: 0af9b67bc2e111c4dbc22b0d99a69635,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6856069802308107497, guid: 0af9b67bc2e111c4dbc22b0d99a69635,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -267,22 +272,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameHUD
       objectReference: {fileID: 0}
-    - target: {fileID: 8103216425613470170, guid: eda718f411d86fd4d9e4cedabb373f3a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770108526, guid: eda718f411d86fd4d9e4cedabb373f3a, type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 770108526, guid: eda718f411d86fd4d9e4cedabb373f3a, type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8103216425499125812, guid: eda718f411d86fd4d9e4cedabb373f3a,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8103216425499125812, guid: eda718f411d86fd4d9e4cedabb373f3a,
@@ -394,6 +385,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408668193189814301, guid: eda718f411d86fd4d9e4cedabb373f3a,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eda718f411d86fd4d9e4cedabb373f3a, type: 3}
@@ -427,11 +423,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 3057379808639591599, guid: 4b3b68b1106fbe941a101c51d8e3c394,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3057379808639591596, guid: 4b3b68b1106fbe941a101c51d8e3c394,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -536,6 +527,24 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3057379808796908276, guid: 4b3b68b1106fbe941a101c51d8e3c394,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3057379808796908276, guid: 4b3b68b1106fbe941a101c51d8e3c394,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620384656, guid: 4b3b68b1106fbe941a101c51d8e3c394, type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620384656, guid: 4b3b68b1106fbe941a101c51d8e3c394, type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b3b68b1106fbe941a101c51d8e3c394, type: 3}

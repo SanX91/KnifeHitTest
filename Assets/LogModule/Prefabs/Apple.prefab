@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5809838507433032025}
   - component: {fileID: 2824296726609964823}
   - component: {fileID: 8956792278890430150}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Apple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 8956792278890430150}
+  currenyValue: 1
 --- !u!50 &8956792278890430150
 Rigidbody2D:
   serializedVersion: 4

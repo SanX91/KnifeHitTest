@@ -68,4 +68,19 @@
             return knives;
         }
     }
+
+    public class ScoreUpdateEvent : IEvent
+    {
+        int score;
+
+        public ScoreUpdateEvent(int score)
+        {
+            this.score = score;
+        }
+
+        public object GetData()
+        {
+            return score;
+        }
+    }
 }

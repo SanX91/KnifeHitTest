@@ -9,6 +9,11 @@ namespace KnifeHitTest
         public int poolCount = 10;
         private List<T> pooledEntities;
 
+        private void Start()
+        {
+            CreateEntityPool();
+        }
+
         private void CreateEntityPool()
         {
             pooledEntities = new List<T>();

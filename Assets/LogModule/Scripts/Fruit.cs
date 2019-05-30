@@ -6,14 +6,13 @@ namespace KnifeHitTest
 {
     public class Fruit : Attachable
     {
+        [SerializeField]
+        int currenyValue = 1;
+
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (!collider.GetComponent<Attachable>())
-            {
-                return;
-            }
-
             gameObject.SetActive(false);
+            EventManager.Instance.TriggerEvent(new CurrencyPickupEvent(currenyValue));
         }
     } 
 }

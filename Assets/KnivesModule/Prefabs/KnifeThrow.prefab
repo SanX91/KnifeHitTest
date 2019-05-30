@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ed6fb55857b834ba9fcfa7306eb1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageKnives: 4
+  scorePerTurn: 2
+  turnEndMultiplier: 1.2
   knifeFactory: {fileID: 1546306808773092081}
   knifePlaceholder: {fileID: 1546306809190060241}

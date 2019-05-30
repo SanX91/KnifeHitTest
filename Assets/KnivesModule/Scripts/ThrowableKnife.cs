@@ -35,9 +35,9 @@ namespace KnifeHitTest
                 return;
             }
 
-            RaycastHit2D[] hits = Physics2D.BoxCastAll(Rigidbody.position + collider.offset, collider.size, 0, Rigidbody.velocity.normalized, 1);
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(Rigidbody.position + collider.offset, collider.size, 0, Rigidbody.velocity.normalized, 0.5f);
             Transform hitTransform = null;
-            bool hasAttachable = false;
+            bool isMisHit = false;
             foreach(var hit in hits)
             {
                 if(hit.collider.gameObject == gameObject)
@@ -45,15 +45,15 @@ namespace KnifeHitTest
                     continue;
                 }
 
-                if(hit.collider.GetComponent<Attachable>())
+                if(hit.collider.gameObject.layer.Equals(LayerMask.NameToLayer(Constants.NonThrowableLayer)))
                 {
-                    hasAttachable = true;
+                    isMisHit = true;
                     hitTransform = hit.transform;
                     break;
                 }
             }
 
-            if(!hasAttachable)
+            if(!isMisHit)
             {
                 return;
             }

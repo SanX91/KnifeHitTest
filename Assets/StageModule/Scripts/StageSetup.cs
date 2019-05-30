@@ -23,11 +23,6 @@ namespace KnifeHitTest
             EventManager.Instance.RemoveListener<StageEndEvent>(OnStageEndEvent);
         }
 
-        private void OnTurnEndEvent(TurnEndEvent obj)
-        {
-            throw new NotImplementedException();
-        }
-
         private void OnStageEndEvent(StageEndEvent evt)
         {
             stageId++;
@@ -50,13 +45,18 @@ namespace KnifeHitTest
 
             if(request.asset == null)
             {
-                Debug.LogWarning("Stage not found, triggering game over!");
+                EventManager.Instance.TriggerEvent(new GameOverEvent());
                 yield break;
             }
 
             stageSettings = (IStageSettings)Instantiate(request.asset);
             EventManager.Instance.TriggerEvent(new StageStartEvent(stageSettings));
             EventManager.Instance.TriggerEvent(new StageIdEvent(stageId));
+        }
+
+        public void Reset()
+        {
+            stageId = 1;
         }
     } 
 }

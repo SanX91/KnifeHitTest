@@ -8,11 +8,16 @@ namespace KnifeHitTest
     public class KnifeThrow : MonoBehaviour
     {
         [SerializeField]
+        int scorePerTurn = 2;
+        [SerializeField]
+        float turnEndMultiplier = 1.2f;
+        [SerializeField]
         private PooledAttachableFactory knifeFactory;
         [SerializeField]
         Transform knifePlaceholder;
 
         IController controller;
+        ScoreData scoreData;
         int stageKnives;
 
         private void OnEnable()
@@ -32,14 +37,19 @@ namespace KnifeHitTest
             controller = new MouseController();
         }
 
-        private void OnTurnEndEvent(TurnEndEvent obj)
+        private void OnTurnEndEvent(TurnEndEvent evt)
         {
             if(stageKnives>0)
             {
                 StartCoroutine(StageRoutine());
+                scoreData.AdjustScore(scorePerTurn);
+                Debug.Log(scoreData.Score);
+                EventManager.Instance.TriggerEvent(new ScoreUpdateEvent(scoreData.Score));
                 return;
             }
 
+            scoreData.AdjustScore(scorePerTurn, turnEndMultiplier);
+            EventManager.Instance.TriggerEvent(new ScoreUpdateEvent(scoreData.Score));
             EventManager.Instance.TriggerEvent(new StageSuccessEvent());
         }
 
@@ -48,12 +58,12 @@ namespace KnifeHitTest
             IStageSettings stageSettings = (IStageSettings)evt.GetData();
             stageKnives = stageSettings.Knives;
             EventManager.Instance.TriggerEvent(new KnivesUpdateEvent(stageKnives));
-            Initialize();
+            StartCoroutine(StageRoutine());
         }
 
-        private void Initialize()
+        public void Initialize(ScoreData scoreData)
         {
-            StartCoroutine(StageRoutine());
+            this.scoreData = scoreData;   
         }
 
         IEnumerator StageRoutine()

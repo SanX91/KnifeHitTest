@@ -7,18 +7,25 @@ namespace KnifeHitTest
     public class GameHUD : UIPanel
     {
         [SerializeField]
-        private TextMeshProUGUI knivesText, stageText;
+        private TextMeshProUGUI knivesText, stageText, scoreText;
 
         private void OnEnable()
         {
+            EventManager.Instance.AddListener<ScoreUpdateEvent>(OnScoreUpdate);
             EventManager.Instance.AddListener<StageIdEvent>(OnStageIdUpdate);
             EventManager.Instance.AddListener<KnivesUpdateEvent>(OnKnivesUpdate);
         }
 
         private void OnDisable()
         {
-            EventManager.Instance.AddListener<StageIdEvent>(OnStageIdUpdate);
-            EventManager.Instance.AddListener<KnivesUpdateEvent>(OnKnivesUpdate);
+            EventManager.Instance.RemoveListener<ScoreUpdateEvent>(OnScoreUpdate);
+            EventManager.Instance.RemoveListener<StageIdEvent>(OnStageIdUpdate);
+            EventManager.Instance.RemoveListener<KnivesUpdateEvent>(OnKnivesUpdate);
+        }
+
+        private void OnScoreUpdate(ScoreUpdateEvent evt)
+        {
+            scoreText.SetText($"Score: {evt.GetData()}");
         }
 
         private void OnStageIdUpdate(StageIdEvent evt)
