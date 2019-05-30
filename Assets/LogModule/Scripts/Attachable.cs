@@ -41,6 +41,8 @@ namespace KnifeHitTest
             }
 
             AdjustRigidbodyType(RigidbodyType2D.Dynamic);
+            rigidbody.velocity = Vector2.zero;
+
             var dir = (transform.position - explosionPosition).normalized;
             dir = (Vector2)dir + Random.insideUnitCircle;
             Rigidbody.AddForce(dir * explosionForce, ForceMode2D.Impulse);

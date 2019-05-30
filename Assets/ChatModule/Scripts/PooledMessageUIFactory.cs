@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace KnifeHitTest
+namespace ChatSystem
 {
-    public interface IEvent
+    public class PooledMessageUIFactory : PooledFactory<MessageUI>
     {
-        object GetData();
+
     }
 }
+

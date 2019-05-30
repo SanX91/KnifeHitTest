@@ -102,7 +102,7 @@ MonoBehaviour:
   knifeFactory: {fileID: 4154240509921032473, guid: c4bca0c815c4ae44e8bba37cebbf70ee,
     type: 3}
   radius: 2.2
-  explosionForce: 3
+  explosionForce: 20
 --- !u!50 &6350466535950081234
 Rigidbody2D:
   serializedVersion: 4
